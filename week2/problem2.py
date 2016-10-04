@@ -38,9 +38,21 @@ def calcAnnualBalance(principal, rate, monthlyPayment)
 principal = float(input('Enter principal: '))
 annualInterestRate = float(input('Enter annual interest rate: '))
 
-payment = principal / 2
-while (
-  calcAnnualBalance(principal, annualInterestRate, payment)
+paymentGuess = principal/6
+lowPaymentGuess = principal/12
+highPaymentGuess = principal
+while (1)
+  endOfYearBalance = calcAnnualBalance(principal, annualInterestRate, payment)
+  if endOfYearBalance > 0:
+    # increase payment guess
+    lowPaymentGuess = paymentGuess
+    paymentGuess += (highPaymentGuess - paymentGuess)/2
+  elsif endOfYearBalance < 1.00:
+    # lower payment guess
+    highPaymentGuess = paymentGuess
+    paymentGuess -= (paymentGuess - lowPaymentGuess)/2
+  else
+    break
 
 
 balance = float(input('Enter balance: '))
