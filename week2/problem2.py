@@ -19,7 +19,7 @@ def calcMonthlyBalance (principal, rate, payment):
   return principal + rate/12 * principal
 
 
-def calcAnnualBalance(principal, rate, monthlyPayment)
+def calcAnnualBalance(principal, rate, monthlyPayment):
   """
   Calculates the balance after a year of fixed monthly payments 
 
@@ -31,30 +31,34 @@ def calcAnnualBalance(principal, rate, monthlyPayment)
   """
   
   for i in range (0, 12):
-    balance = calcMonthlyBalance (balance, annualInterestRate, monthlyPaymentRate)
-  return balance 
+    principal = calcMonthlyBalance (principal, rate, monthlyPayment)
+  return principal 
 
+if __name__ == "__main__":
+  closeEnough = -1.00
 
-principal = float(input('Enter principal: '))
-annualInterestRate = float(input('Enter annual interest rate: '))
+  principal = float(input('Enter principal: '))
+  annualInterestRate = float(input('Enter annual interest rate: '))
 
-paymentGuess = principal/6
-lowPaymentGuess = principal/12
-highPaymentGuess = principal
-while (1)
-  endOfYearBalance = calcAnnualBalance(principal, annualInterestRate, payment)
-  if endOfYearBalance > 0:
-    # increase payment guess
-    lowPaymentGuess = paymentGuess
-    paymentGuess += (highPaymentGuess - paymentGuess)/2
-  elsif endOfYearBalance < 1.00:
-    # lower payment guess
-    highPaymentGuess = paymentGuess
-    paymentGuess -= (paymentGuess - lowPaymentGuess)/2
-  else
-    break
+  paymentGuess = principal/6
+  lowPaymentGuess = principal/12
+  highPaymentGuess = principal
+  endOfYearBalance = principal
+  while (endOfYearBalance < closeEnough) or (endOfYearBalance > 0):
+    if endOfYearBalance > 0.00:
+      # increase payment guess
+      lowPaymentGuess = paymentGuess
+      paymentGuess += (highPaymentGuess - paymentGuess)/2
+    else :
+      # lower payment guess
+      highPaymentGuess = paymentGuess
+      paymentGuess -= (paymentGuess - lowPaymentGuess)/2
+    endOfYearBalance = calcAnnualBalance(principal, annualInterestRate, paymentGuess)
+    print("With payment of %.2f, balance is %.2f" % (paymentGuess, endOfYearBalance))
+    input()
+  print ( "Lowest Payment: " + paymentGuess)
 
-
+'''
 balance = float(input('Enter balance: '))
 annualInterestRate = float(input('Enter annual interest rate: '))
 monthlyPaymentRate = float(input('Enter monthly payment rate: '))
@@ -63,3 +67,4 @@ for i in range (0, 12):
   balance = calcMonthlyBalance (balance, annualInterestRate, monthlyPaymentRate)
   # print("Month %i balance: %.2f" % (i, balance)) 
 print("Remaining balance: %.2f" % balance)  
+'''
