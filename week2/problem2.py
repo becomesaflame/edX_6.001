@@ -59,13 +59,3 @@ if __name__ == "__main__":
     # input()
   print ( "Lowest Payment: %.2f" % paymentGuess)
 
-'''
-balance = float(input('Enter balance: '))
-annualInterestRate = float(input('Enter annual interest rate: '))
-monthlyPaymentRate = float(input('Enter monthly payment rate: '))
-
-for i in range (0, 12):
-  balance = calcMonthlyBalance (balance, annualInterestRate, monthlyPaymentRate)
-  # print("Month %i balance: %.2f" % (i, balance)) 
-print("Remaining balance: %.2f" % balance)  
-'''
