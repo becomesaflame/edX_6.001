@@ -7,6 +7,7 @@
 # but you will have to know how to use the functions
 # (so be sure to read the docstrings!)
 
+from __future__ import print_function
 import random
 
 WORDLIST_FILENAME = "words.txt"
@@ -51,7 +52,7 @@ def isWordGuessed(secretWord, lettersGuessed):
       False otherwise
     '''
     # FILL IN YOUR CODE HERE...
-
+    return all([char in lettersGuessed for char in secretWord])
 
 
 def getGuessedWord(secretWord, lettersGuessed):
@@ -62,7 +63,13 @@ def getGuessedWord(secretWord, lettersGuessed):
       what letters in secretWord have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE...
-
+    out = ""
+    for letter in secretWord:
+        if letter in lettersGuessed:
+            out += letter
+        else:
+            out += '_ '
+    return out
 
 
 def getAvailableLetters(lettersGuessed):
