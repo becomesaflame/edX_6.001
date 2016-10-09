@@ -9,6 +9,7 @@
 
 from __future__ import print_function
 import random
+import string
 
 WORDLIST_FILENAME = "words.txt"
 
@@ -79,7 +80,11 @@ def getAvailableLetters(lettersGuessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE...
-    
+    remainingLetters = list(string.ascii_lowercase)
+    for letter in lettersGuessed:
+        remainingLetters.remove(letter)
+    return ''.join(remainingLetters)
+
 
 def hangman(secretWord):
     '''
