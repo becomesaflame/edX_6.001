@@ -136,10 +136,12 @@ def hangman(secretWord):
         if isWordGuessed(secretWord, lettersGuessed): 
             print ("-------------") 
             print ("Congratulations, you won!") 
+            printMan(mistakesMade)
             break
         elif mistakesMade >= 8:
             print ("-------------") 
             print ("Sorry, you ran out of guesses. The word was %s." % secretWord) 
+            printMan(mistakesMade)
             break
         
         printMan(mistakesMade)
