@@ -118,34 +118,42 @@ def hangman(secretWord):
     while (True):
         print ("You have %d guesses left." % (8 - mistakesMade))
         print ("Available letters: ", getAvailableLetters(lettersGuessed))
-        guess = input("Please guess a letter: ") 
-        if guess in lettersGuessed:
-            print ("Oops! You've already guessed that letter: ", getGuessedWord(secretWord, lettersGuessed))
-        elif guess in secretWord:
-            lettersGuessed += guess
-            print ("Good guess: ", getGuessedWord(secretWord, lettersGuessed))
-        elif guess in getAvailableLetters(lettersGuessed): 
-            # Not in secret word, not in guessed, available
-            print ("Oops! That letter is not in my word: ", getGuessedWord(secretWord, lettersGuessed))
-            mistakesMade += 1
-            lettersGuessed += guess
+        
+        try:
+            guess = input("Please guess a letter: ") 
+        except (SyntaxError, NameError): 
+            print ("-------------") 
+            print ( "Invalid input. Try again")
+            print ("-------------") 
         else: 
-            # Not in secret word, not in guessed, not in available letters
-            print ("Oops! You've entered an invalid guess: ", getGuessedWord(secretWord, lettersGuessed)) 
+            
+            if guess in lettersGuessed:
+                print ("Oops! You've already guessed that letter: ", getGuessedWord(secretWord, lettersGuessed))
+            elif guess in secretWord:
+                lettersGuessed += guess
+                print ("Good guess: ", getGuessedWord(secretWord, lettersGuessed))
+            elif guess in getAvailableLetters(lettersGuessed): 
+                # Not in secret word, not in guessed, available
+                print ("Oops! That letter is not in my word: ", getGuessedWord(secretWord, lettersGuessed))
+                mistakesMade += 1
+                lettersGuessed += guess
+            else: 
+                # Not in secret word, not in guessed, not in available letters
+                print ("Oops! You've entered an invalid guess: ", getGuessedWord(secretWord, lettersGuessed)) 
         
-        if isWordGuessed(secretWord, lettersGuessed): 
-            print ("-------------") 
-            print ("Congratulations, you won!") 
-            printMan(mistakesMade)
-            break
-        elif mistakesMade >= 8:
-            print ("-------------") 
-            print ("Sorry, you ran out of guesses. The word was %s." % secretWord) 
-            printMan(mistakesMade)
-            break
+            if isWordGuessed(secretWord, lettersGuessed): 
+                print ("-------------") 
+                print ("Congratulations, you won!") 
+                printMan(mistakesMade)
+                break
+            elif mistakesMade >= 8:
+                print ("-------------") 
+                print ("Sorry, you ran out of guesses. The word was %s." % secretWord) 
+                printMan(mistakesMade)
+                break
         
-        printMan(mistakesMade)
-        print ("-------------") 
+            printMan(mistakesMade)
+            print ("-------------") 
 
 
 
