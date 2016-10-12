@@ -1,5 +1,6 @@
 # The 6.00 Word Game
 
+from __future__ import print_function
 import random
 import string
 
