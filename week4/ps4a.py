@@ -154,6 +154,7 @@ def updateHand(hand, word):
     return newHand
 
 
+
 #
 # Problem #3: Test word validity
 #
@@ -171,7 +172,12 @@ def isValidWord(word, hand, wordList):
     if word not in wordList:
         return False
     
-    freq = getFrequencyDict(word) 
+    if len(word) == 0:
+        return False 
+
+    wordFreq = getFrequencyDict(word)
+    return all(hand.get(key, 0) >= wordFreq[key] for key in wordFreq)
+
 
 
 #
