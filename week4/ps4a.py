@@ -130,7 +130,7 @@ def dealHand(n):
 #
 # Problem #2: Update a hand by removing letters
 #
-def updateHand(hand, word):
+def UpdateHand(hand, word):
     """
     Assumes that 'hand' has all the letters in word.
     In other words, this assumes that however many times
@@ -191,7 +191,7 @@ def calculateHandlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
-    # TO DO... <-- Remove this comment when you code this function
+    return sum(hand[key] for key in hand)
 
 
 
@@ -219,32 +219,52 @@ def playHand(hand, wordList, n):
     """
     # BEGIN PSEUDOCODE <-- Remove this comment when you code this function; do your coding within the pseudocode (leaving those comments in-place!)
     # Keep track of the total score
-    
-    # As long as there are still letters left in the hand:
-    
-        # Display the hand
-        
-        # Ask user for input
-        
-        # If the input is a single period:
-        
-            # End the game (break out of the loop)
+    totalPoints = 0
 
+    # As long as there are still letters left in the hand:
+    while len(hand) > 0 :
+
+        # Display the hand
+        print("Current Hand: ", end='')
+        displayHand(hand)
+
+        # Ask user for input
+        try:
+            word = input("Enter word, or a \".\" to indicate that you are finished: ") 
+        except (SyntaxError, NameError):
+            print ("Invalid input. \n") 
+            continue
+
+        # If the input is a single period:
+        if word == '.' :
+
+            # End the game (break out of the loop)
+            break
             
         # Otherwise (the input is not a single period):
-        
+        else: 
             # If the word is not valid:
-            
+            if not isValidWord(word, hand, wordList):
+
                 # Reject invalid word (print a message followed by a blank line)
+                print ("Invalid word, please try again. \n") 
 
             # Otherwise (the word is valid):
+            else:
 
                 # Tell the user how many points the word earned, and the updated total score, in one line followed by a blank line
+                wordPoints = getWordScore(word, n)
+                totalPoints += wordPoints 
+                print ("\"%s\" earned %d points. Total: %d points \n" % (word, wordPoints, totalPoints))
                 
                 # Update the hand 
-                
+                hand = updateHand(hand, word)
 
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
+    if len(hand) == 0:
+        print ("Run out of letters. Total score: %d points." % totalPoints) 
+    else:
+        print ("Goodbye! Total score: %d points." % totalPoints) 
 
 
 #
