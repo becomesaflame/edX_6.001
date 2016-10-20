@@ -107,7 +107,7 @@ class Message(object):
         up = string.ascii_uppercase
         lowDict = {letter : low[(index + shift) %26] for index, letter in enumerate(low)}
         upDict = {letter : up[(index + shift) %26] for index, letter in enumerate(up)}
-        return lowDict.update(upDict)
+        return {**lowDict, **upDict}
 
     def apply_shift(self, shift):
         '''
@@ -121,8 +121,9 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        shiftDict = build_shift_dict(shift)
-        
+        shiftDict = self.build_shift_dict(shift)
+        text = self.message_text
+        return ''.join([shiftDict[letter] if letter in shiftDict.keys() else letter for letter in text])
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
